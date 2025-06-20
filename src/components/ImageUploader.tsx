@@ -156,7 +156,7 @@ export default function ImageUploader() {
             ref={fileInputRef}
           />
           {image && (
-            <div className="relative grow-4 w-[350px] sm:w-[500px] h-[260px] sm:h-[370px] rounded overflow-hidden border shadow-md">
+            <div className="relative grow-4 w-[400px] sm:w-[500px] h-[300px] sm:h-[370px] rounded overflow-hidden border shadow-md">
               <Cropper
                 image={image}
                 crop={crop}
