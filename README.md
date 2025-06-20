@@ -99,17 +99,17 @@ npm run dev
 
 ### 📱 Mobile View
 
-<img src="./screenshots/mobile.png" width="300" />
+<img src="/Image.webp" width="300" />
 
 ### 💻 Desktop View
 
-<img src="./screenshots/desktop.png" width="600" />
+<img src="/Screenshot desktop.webp" width="600" />
 
 ---
 
 ## 🛠️ AWS Lambda Functions
 
-You’ll need **two Lambda functions**:
+You’ll need **two Lambda functions**: : [`Lambda`](https://github.com/Abhinav9113/print-my-trip-backend)
 
 ### 1. `generatePresignedUploadUrl`
 
@@ -146,18 +146,47 @@ VITE_BUCKET_NAME=your-s3-bucket-name
 
 ---
 
-## 🙋‍♂️ Contributing
+## ❓ Developer Q&A
 
-Pull requests are welcome. For major changes, please open an issue first.
+### 1. How did you ensure the uploaded image matches the required aspect ratio?
 
----
-
-## 📄 License
-
-[MIT](./LICENSE)
+We used the `react-easy-crop` component and explicitly set the `aspect` prop to `3 / 2`, which ensures the crop area maintains a fixed 1800x1200 aspect ratio. This way, regardless of the image’s original dimensions, the resulting cropped image is guaranteed to match the required ratio.
 
 ---
 
-## ✨ Credits
+### 2. Describe how you structured your Lambda and frontend to stay modular.
 
-Developed with ❤️ using React, AWS Lambda, and open-source tools.
+- **Frontend** is broken into:
+
+  - `api/`: contains logic to interact with backend services (S3 and Lambda).
+  - `utils/`: holds pure functions like image cropping and HEIC conversion.
+  - `components/`: isolates UI components such as the stepper-based `ImageUploader`.
+
+- **Lambda** functions:
+  - One handles **upload URL generation**, focused only on folder management and presigned URLs.
+  - The second focuses solely on **image-to-CMYK PDF conversion**, keeping it isolated and reusable.
+
+This separation ensures that concerns are well-defined, making each function/testable, deployable, and independently maintainable.
+
+---
+
+### 3. If this app scaled to 10,000 users/day, what would you change?
+
+- **Optimize Lambda performance** by:
+  - Increasing memory/timeout settings.
+  - Moving image processing to a containerized Lambda with `provisioned concurrency`.
+- **Use SQS or EventBridge** for background processing rather than synchronous Lambda calls.
+- Enable **CloudFront** to serve PDFs directly with caching.
+- Add **rate limiting** and **upload expiration** on S3 to avoid clutter and abuse.
+
+---
+
+### 4. What monitoring or fallback systems would you use in production?
+
+- **CloudWatch Logs** and **Alarms** for Lambda error tracking.
+- **X-Ray tracing** for performance profiling.
+- Fallback UI messages if image conversion fails.
+- **Dead Letter Queues (DLQ)** for failed Lambda executions.
+- Add Slack or email alerts using SNS if failures exceed thresholds.
+
+---
