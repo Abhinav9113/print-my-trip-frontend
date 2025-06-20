@@ -99,11 +99,11 @@ npm run dev
 
 ### 📱 Mobile View
 
-<img src="/Image.webp" width="300" />
+<img src="./public/Image.webp" width="300" />
 
 ### 💻 Desktop View
 
-<img src="/Screenshot desktop.webp" width="600" />
+<img src="./public/Screenshot desktop.webp" width="600" />
 
 ---
 
