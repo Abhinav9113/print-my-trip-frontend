@@ -14,7 +14,7 @@ export async function getPresignedUrl(filename: string, contentType: string) {
       headers: {
         "Content-Type": "application/json",
       },
-    }
+    },
   );
 
   console.log("res", res.data);

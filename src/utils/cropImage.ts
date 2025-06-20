@@ -19,7 +19,7 @@ export async function getCroppedImg(
   imageSrc: string,
   crop: Area,
   targetWidth = 1800,
-  targetHeight = 1200
+  targetHeight = 1200,
 ): Promise<{ previewUrl: string; blob: Blob }> {
   const image = await createImage(imageSrc);
   const canvas = document.createElement("canvas");
@@ -43,7 +43,7 @@ export async function getCroppedImg(
     0,
     0,
     targetWidth,
-    targetHeight
+    targetHeight,
   );
 
   // Convert canvas to blob and URL
@@ -55,7 +55,7 @@ export async function getCroppedImg(
         resolve({ previewUrl, blob });
       },
       "image/jpeg",
-      1
+      1,
     );
   });
 }

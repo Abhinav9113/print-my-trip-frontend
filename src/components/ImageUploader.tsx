@@ -54,7 +54,7 @@ export default function ImageUploader() {
       image,
       croppedAreaPixels!,
       1800,
-      1200
+      1200,
     );
     setCroppedImageUrl(previewUrl);
     setCroppedImageBlob(blob);
@@ -68,7 +68,7 @@ export default function ImageUploader() {
     try {
       const { uploadUrl, fileKey } = await getPresignedUrl(
         "temp.jpg",
-        "image/jpeg"
+        "image/jpeg",
       );
       await uploadFileToS3(uploadUrl, croppedImageBlob);
       setImageStatus("Converting to PDF...");
@@ -105,7 +105,7 @@ export default function ImageUploader() {
     setZoom(1);
     setImageStatus(null);
     if (fileInputRef?.current) {
-      (fileInputRef.current as HTMLInputElement).value = ""; // Clear file input
+      (fileInputRef.current as HTMLInputElement).value = "";
     }
   };
 
@@ -156,7 +156,7 @@ export default function ImageUploader() {
             ref={fileInputRef}
           />
           {image && (
-            <div className="relative w-full max-w-xl h-[400px] rounded overflow-hidden border shadow-md">
+            <div className="relative grow-4 w-[350px] sm:w-[500px] h-[260px] sm:h-[370px] rounded overflow-hidden border shadow-md">
               <Cropper
                 image={image}
                 crop={crop}
